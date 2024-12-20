@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
@@ -119,7 +119,7 @@ export default function Testimonials() {
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={1}
-              onDragEnd={(e, { offset, velocity }) => {
+              onDragEnd={(_: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
                 const swipe = swipePower(offset.x, velocity.x)
 
                 if (swipe < -swipeConfidenceThreshold) {
