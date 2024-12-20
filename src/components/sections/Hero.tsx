@@ -30,7 +30,7 @@ export default function Hero() {
       <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Colonne de gauche : Texte */}
-          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 pt-16 sm:pt-8 md:pt-0">
             <motion.h1 
               className="text-4xl sm:text-5xl lg:text-6xl font-bold"
               initial={{ opacity: 0, y: 20 }}
