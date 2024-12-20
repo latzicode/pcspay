@@ -1,0 +1,13 @@
+import React, { useRef } from 'react';
+
+const ScrollComponent: React.FC = () => {
+  const scrollRef = useRef<HTMLElement>(null);
+
+  return (
+    <div ref={scrollRef}>
+      {/* Your component content */}
+    </div>
+  );
+};
+
+export default ScrollComponent; 
