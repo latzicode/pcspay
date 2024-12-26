@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 
@@ -14,9 +14,11 @@ const navigation = [
 ]
 
 export default function Navbar() {
+  const { scrollY } = useScroll()
   const [shake, setShake] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
+  const [shouldShowButton, setShouldShowButton] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,6 +28,16 @@ export default function Navbar() {
 
     return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    // S'assurer que le bouton est caché au chargement initial
+    setShouldShowButton(window.scrollY > window.innerHeight - 80)
+
+    return scrollY.onChange((latest) => {
+      const heroHeight = window.innerHeight - 80
+      setShouldShowButton(latest > heroHeight)
+    })
+  }, [scrollY])
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">

@@ -69,7 +69,7 @@ export default function CountryBanner() {
           x: ["0%", "-50%"]
         }}
         transition={{
-          duration: 20,
+          duration: 10,
           ease: "linear",
           repeat: Infinity
         }}

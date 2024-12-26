@@ -25,7 +25,7 @@ export default function Hero() {
   }, [mouseX, mouseY])
 
   return (
-    <section className="relative min-h-[calc(100vh-5rem)] pt-20 md:pt-28 pb-16 flex flex-col">
+    <section className="relative min-h-[calc(100vh-5rem)] pt-20 md:pt-28 pb-0 flex flex-col">
       {/* Container principal avec padding adaptatif */}
       <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
