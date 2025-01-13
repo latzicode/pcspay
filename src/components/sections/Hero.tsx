@@ -6,6 +6,7 @@ import Image from "next/image";
 import ScrollCTA from "@/components/ui/ScrollCTA";
 import FinancialFlow from '@/components/ui/FinancialFlow';
 import { useTheme } from 'next-themes';
+import LeafTransition from '@/components/ui/LeafTransition'
 
 // Icône de doigt qui pointe
 const TapIcon = () => (
@@ -96,113 +97,145 @@ export default function Hero() {
   );
 
   return (
-    <section ref={containerRef} className="relative min-h-[calc(100vh-5rem)] pt-20 md:pt-28 pb-0 flex flex-col bg-background overflow-hidden">
-      {/* Background avec parallaxe simplifié */}
-      <motion.div 
-        className="absolute inset-0 w-full h-[140vh]" // Hauteur réduite
-        style={{ y: backgroundY }}
-      >
-        <motion.div
-          className="relative w-full h-full"
-          style={{ scale }}
+    <>
+      <section ref={containerRef} className="relative min-h-[calc(100vh-5rem)] pt-20 md:pt-28 pb-0 flex flex-col bg-background overflow-hidden">
+        {/* Background avec parallaxe simplifié */}
+        <motion.div 
+          className="absolute inset-0 w-full h-[140vh]" // Hauteur réduite
+          style={{ y: backgroundY }}
         >
-          <Image
-            src="/baobab.png"
-            alt="Baobab Background"
-            fill
-            className="object-cover object-top opacity-95"
-            priority
-            quality={100}
-          />
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: theme === 'dark' 
-                ? `linear-gradient(to bottom, rgba(15,23,42,0.75), rgba(15,23,42,0.85), rgba(15,23,42,0.95))`
-                : `linear-gradient(to bottom, rgba(253,251,247,0.75), rgba(253,251,247,0.85), rgba(253,251,247,0.95))`
-            }}
-          />
-        </motion.div>
-      </motion.div>
-
-      {/* Contenu principal */}
-      <div className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Animation centrée en background */}
-        <div className="
-          absolute inset-0 
-          hidden sm:flex  // Caché sur mobile (<640px), visible sur sm et au-delà
-          items-center 
-          justify-center 
-          pointer-events-none
-        ">
-          <div className="w-[600px] h-[500px] relative">
-            {/* Europe - centrée horizontalement, en haut */}
-            <div 
-              className="absolute"
-              style={{ 
-                left: '50%',
-                top: '25%',
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <Image
-                src="/continents/digitaleurope.png"
-                alt="Digital Europe"
-                width={150}
-                height={150}
-                className="opacity-80"
-              />
-            </div>
-
-            {/* Afrique - même axe vertical, plus bas et plus grande */}
-            <div 
-              className="absolute"
-              style={{ 
-                left: '50%',
-                top: '75%',
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <Image
-                src="/continents/digitalafrica.png"
-                alt="Digital Africa"
-                width={200}
-                height={200}
-                className="opacity-80"
-              />
-            </div>
-
-            <FinancialFlow 
-              mouseX={mouseX} 
-              mouseY={mouseY}
-              containerWidth={600}
+          <motion.div
+            className="relative w-full h-full"
+            style={{ scale }}
+          >
+            <Image
+              src="/baobab.png"
+              alt="Baobab Background"
+              fill
+              className="object-cover object-top opacity-95"
+              priority
+              quality={100}
             />
-          </div>
-        </div>
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: theme === 'dark' 
+                  ? `linear-gradient(to bottom, rgba(15,23,42,0.75), rgba(15,23,42,0.85), rgba(15,23,42,0.95))`
+                  : `linear-gradient(to bottom, rgba(253,251,247,0.75), rgba(253,251,247,0.85), rgba(253,251,247,0.95))`
+              }}
+            />
+          </motion.div>
+        </motion.div>
 
-        <div className="
-          h-full 
-          flex flex-col lg:flex-row 
-          items-center 
-          justify-center lg:justify-between 
-          relative
-        ">
-          {/* Bloc texte */}
+        {/* Contenu principal */}
+        <div className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Animation centrée en background */}
           <div className="
-            w-full lg:w-5/12 
-            flex flex-col 
-            items-center lg:items-start 
-            text-center lg:text-left 
-            space-y-8
-            pt-8 lg:pt-0
+            absolute inset-0 
+            hidden sm:flex  // Caché sur mobile (<640px), visible sur sm et au-delà
+            items-center 
+            justify-center 
+            pointer-events-none
           ">
-            <h1 className="
-              text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
-              font-bold 
-              font-display
-              max-w-[18ch] sm:max-w-none
+            <div className="w-[600px] h-[500px] relative">
+              {/* Europe - centrée horizontalement, en haut */}
+              <div 
+                className="absolute"
+                style={{ 
+                  left: '50%',
+                  top: '25%',
+                  transform: 'translate(-50%, -50%)'
+                }}
+              >
+                <Image
+                  src="/continents/digitaleurope.png"
+                  alt="Digital Europe"
+                  width={150}
+                  height={150}
+                  className="opacity-80"
+                />
+              </div>
+
+              {/* Afrique - même axe vertical, plus bas et plus grande */}
+              <div 
+                className="absolute"
+                style={{ 
+                  left: '50%',
+                  top: '75%',
+                  transform: 'translate(-50%, -50%)'
+                }}
+              >
+                <Image
+                  src="/continents/digitalafrica.png"
+                  alt="Digital Africa"
+                  width={200}
+                  height={200}
+                  className="opacity-80"
+                />
+              </div>
+
+              <FinancialFlow 
+                mouseX={mouseX} 
+                mouseY={mouseY}
+                containerWidth={600}
+              />
+            </div>
+          </div>
+
+          <div className="
+            h-full 
+            flex flex-col lg:flex-row 
+            items-center 
+            justify-center lg:justify-between 
+            relative
+          ">
+            {/* Bloc texte */}
+            <div className="
+              w-full lg:w-5/12 
+              flex flex-col 
+              items-center lg:items-start 
+              text-center lg:text-left 
+              space-y-8
+              pt-8 lg:pt-0
             ">
-              <div className="overflow-hidden h-[3.6em] sm:h-[2.4em] md:h-[3.2em]">
+              <h1 className="
+                text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+                font-bold 
+                font-display
+                max-w-[18ch] sm:max-w-none
+              ">
+                <div className="overflow-hidden h-[3.6em] sm:h-[2.4em] md:h-[3.2em]">
+                  <motion.div
+                    animate={{
+                      y: ["0%", "-50%", "-50%", "0%", "0%"]
+                    }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      times: [0, 0.2, 0.7, 0.9, 1],
+                      ease: "easeInOut"
+                    }}
+                    className="space-y-[1.2em]"
+                  >
+                    <span className="block bg-gradient-to-r from-primary via-primary-dark to-primary bg-clip-text text-transparent">
+                      Simplifiez vos paiements
+                    </span>
+                    <span className="block bg-gradient-to-r from-primary via-primary-dark to-primary bg-clip-text text-transparent">
+                      Payez les factures de vos proches
+                    </span>
+                  </motion.div>
+                </div>
+                <span className="block bg-gradient-to-r from-primary via-primary-dark to-primary bg-clip-text text-transparent mt-2">
+                  en Afrique
+                </span>
+              </h1>
+
+              <div className="
+                overflow-hidden 
+                h-[3.8em] sm:h-[2.4em] md:h-[3.2em]
+                text-[9px] sm:text-lg lg:text-xl
+                w-full
+              ">
                 <motion.div
                   animate={{
                     y: ["0%", "-50%", "-50%", "0%", "0%"]
@@ -213,265 +246,237 @@ export default function Hero() {
                     times: [0, 0.2, 0.7, 0.9, 1],
                     ease: "easeInOut"
                   }}
-                  className="space-y-[1.2em]"
+                  className="space-y-6"
                 >
-                  <span className="block bg-gradient-to-r from-primary via-primary-dark to-primary bg-clip-text text-transparent">
-                    Simplifiez vos paiements
-                  </span>
-                  <span className="block bg-gradient-to-r from-primary via-primary-dark to-primary bg-clip-text text-transparent">
-                    Payez les factures de vos proches
-                  </span>
+                  <p className="font-display text-[11px] sm:text-lg lg:text-xl max-w-2xl relative"
+                     style={{
+                       color: 'rgba(246, 150, 190, 0.98)',
+                       textShadow: '0 1px 2px rgba(0,0,0,0.1)'
+                     }}
+                  >
+                    <span className="relative z-10">
+                      Gérez vos transferts d'argent et paiements de factures en toute simplicité avec MY DIASPO
+                    </span>
+                    <span className="absolute inset-0 -z-10 bg-[rgba(255,192,120,0.35)] rounded-lg" />
+                  </p>
+                  <p className="font-display text-[11px] sm:text-lg lg:text-xl max-w-2xl relative"
+                     style={{
+                       color: 'rgba(246, 146, 188, 0.98)',
+                       textShadow: '0 1px 2px rgba(0,0,0,0.1)'
+                     }}
+                  >
+                    <span className="relative z-10">
+                      Électricité, eau, scolarité... <span className="hidden sm:inline">en quelques clics depuis chez vous</span><span className="inline sm:hidden">en quelques clics</span>
+                    </span>
+                    <span className="absolute inset-0 -z-10 bg-[rgba(255,192,120,0.35)] rounded-lg" />
+                  </p>
                 </motion.div>
               </div>
-              <span className="block bg-gradient-to-r from-primary via-primary-dark to-primary bg-clip-text text-transparent mt-2">
-                en Afrique
-              </span>
-            </h1>
 
-            <div className="
-              overflow-hidden 
-              h-[3.8em] sm:h-[2.4em] md:h-[3.2em]
-              text-[9px] sm:text-lg lg:text-xl
-              w-full
-            ">
-              <motion.div
-                animate={{
-                  y: ["0%", "-50%", "-50%", "0%", "0%"]
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  times: [0, 0.2, 0.7, 0.9, 1],
-                  ease: "easeInOut"
-                }}
-                className="space-y-6"
-              >
-                <p className="font-display text-[11px] sm:text-lg lg:text-xl max-w-2xl relative"
-                   style={{
-                     color: 'rgba(246, 150, 190, 0.98)',
-                     textShadow: '0 1px 2px rgba(0,0,0,0.1)'
-                   }}
+              {/* Bloc des CTAs - uniquement visible sur desktop */}
+              <div className="hidden lg:flex flex-wrap gap-4 justify-center lg:justify-start">
+                <a 
+                  href="/pay-bill"
+                  className="group px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
                 >
-                  <span className="relative z-10">
-                    Gérez vos transferts d'argent et paiements de factures en toute simplicité avec MY DIASPO
+                  <span className="inline-flex items-center mr-3 transition-transform duration-300 group-hover:scale-110">
+                    <svg 
+                      className="w-[1.2em] h-[1.2em]"
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
+                      />
+                    </svg>
                   </span>
-                  <span className="absolute inset-0 -z-10 bg-[rgba(255,192,120,0.35)] rounded-lg" />
-                </p>
-                <p className="font-display text-[11px] sm:text-lg lg:text-xl max-w-2xl relative"
-                   style={{
-                     color: 'rgba(246, 146, 188, 0.98)',
-                     textShadow: '0 1px 2px rgba(0,0,0,0.1)'
-                   }}
+                  <span>Payer une facture</span>
+                </a>
+                <a 
+                  href="/contact"
+                  className="px-8 py-4 bg-gradient-soft backdrop-blur-sm text-text rounded-full font-medium hover:bg-gradient-metallic hover:text-white transition-all"
                 >
-                  <span className="relative z-10">
-                    Électricité, eau, scolarité... <span className="hidden sm:inline">en quelques clics depuis chez vous</span><span className="inline sm:hidden">en quelques clics</span>
-                  </span>
-                  <span className="absolute inset-0 -z-10 bg-[rgba(255,192,120,0.35)] rounded-lg" />
-                </p>
-              </motion.div>
+                  En savoir plus
+                </a>
+              </div>
             </div>
 
-            {/* Bloc des CTAs - uniquement visible sur desktop */}
-            <div className="hidden lg:flex flex-wrap gap-4 justify-center lg:justify-start">
-              <a 
-                href="/pay-bill"
-                className="group px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
-              >
-                <span className="inline-flex items-center mr-3 transition-transform duration-300 group-hover:scale-110">
-                  <svg 
-                    className="w-[1.2em] h-[1.2em]"
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
-                    />
-                  </svg>
-                </span>
-                <span>Payer une facture</span>
-              </a>
-              <a 
-                href="/contact"
-                className="px-8 py-4 bg-gradient-soft backdrop-blur-sm text-text rounded-full font-medium hover:bg-gradient-metallic hover:text-white transition-all"
-              >
-                En savoir plus
-              </a>
-            </div>
-          </div>
-
-          {/* Mockup interactif */}
-          <div className="
-            w-full sm:w-[70%] lg:w-5/12
-            relative
-            mt-12 lg:mt-0
-          ">
+            {/* Mockup interactif */}
             <div className="
-              relative 
-              w-[66%] sm:w-[300px]
-              mx-auto 
-              perspective-[1200px]
+              w-full sm:w-[70%] lg:w-5/12
+              relative
+              mt-12 lg:mt-0
             ">
-              {/* Container avec effet permanent sur mobile */}
-              <motion.div 
-                className="
-                  relative
-                  rounded-[2rem]
-                  overflow-hidden
-                  !border-[1px] !border-solid !border-white/40
-                  bg-gradient-to-br from-white/10 via-white/5 to-transparent
-                  backdrop-blur-sm
-                  p-[1px]
-                  group
-                  cursor-pointer sm:cursor-default
-                  transition-all duration-300
-                  active:scale-[0.98]
-                "
-                onClick={() => {
-                  if (window.innerWidth < 640) { // 640px est le breakpoint 'sm' de Tailwind
-                    window.location.href = '/pay-bill'
-                  }
-                }}
-              >
-                <AnimatePresence mode="popLayout">
+              <div className="
+                relative 
+                w-[66%] sm:w-[300px]
+                mx-auto 
+                perspective-[1200px]
+              ">
+                {/* Container avec effet permanent sur mobile */}
+                <motion.div 
+                  className="
+                    relative
+                    rounded-[2rem]
+                    overflow-hidden
+                    !border-[1px] !border-solid !border-white/40
+                    bg-gradient-to-br from-white/10 via-white/5 to-transparent
+                    backdrop-blur-sm
+                    p-[1px]
+                    group
+                    cursor-pointer sm:cursor-default
+                    transition-all duration-300
+                    active:scale-[0.98]
+                  "
+                  onClick={() => {
+                    if (window.innerWidth < 640) { // 640px est le breakpoint 'sm' de Tailwind
+                      window.location.href = '/pay-bill'
+                    }
+                  }}
+                >
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={currentImage}
+                      initial={{ 
+                        rotateY: 90,
+                        x: 100,
+                        opacity: 0,
+                      }}
+                      animate={{ 
+                        rotateY: 0,
+                        x: 0,
+                        opacity: 1,
+                      }}
+                      exit={{ 
+                        rotateY: -90,
+                        x: -100,
+                        opacity: 0,
+                      }}
+                      transition={{
+                        duration: 0.8,
+                        ease: [0.4, 0, 0.2, 1]
+                      }}
+                      style={{
+                        transformStyle: 'preserve-3d',
+                      }}
+                    >
+                      <Image
+                        src={`/mockups/mockup${currentImage}.png`}
+                        alt="MY DIASPO Interface"
+                        width={300}
+                        height={225}
+                        className="w-full h-auto"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Messages interactifs pour desktop */}
                   <motion.div
-                    key={currentImage}
-                    initial={{ 
-                      rotateY: 90,
-                      x: 100,
-                      opacity: 0,
-                    }}
-                    animate={{ 
-                      rotateY: 0,
-                      x: 0,
-                      opacity: 1,
-                    }}
-                    exit={{ 
-                      rotateY: -90,
-                      x: -100,
-                      opacity: 0,
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      ease: [0.4, 0, 0.2, 1]
-                    }}
-                    style={{
-                      transformStyle: 'preserve-3d',
-                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 hidden sm:flex items-end justify-center bg-gradient-to-t from-black/90 via-black/40 to-transparent"
                   >
-                    <Image
-                      src={`/mockups/mockup${currentImage}.png`}
-                      alt="MY DIASPO Interface"
-                      width={300}
-                      height={225}
-                      className="w-full h-auto"
-                      priority
-                    />
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Messages interactifs pour desktop */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 hidden sm:flex items-end justify-center bg-gradient-to-t from-black/90 via-black/40 to-transparent"
-                >
-                  <motion.p
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -20, opacity: 0 }}
-                    transition={{ 
-                      duration: 0.5,
-                      ease: [0.4, 0, 0.2, 1]
-                    }}
-                    className="p-6 text-center font-display text-sm leading-relaxed"
-                  >
-                    <span className="relative">
-                      <span className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 blur-sm rounded-lg" />
-                      <span className="relative text-white/95">
-                        {currentImage === 2 && "Rejoignez 'My DIASPO' et simplifiez vos paiements vers l'Afrique, en toute sécurité et simplicité."}
-                        {currentImage === 3 && "Effectuez vos paiements rapidement et en toute sécurité, avec un design intuitif et sécurisé"}
-                        {currentImage === 4 && "Gardez le contrôle sur vos transactions grâce à un historique clair et des reçus accessibles."}
-                        {currentImage === 5 && "Gérez votre compte, vos préférences et votre sécurité en toute simplicité."}
+                    <motion.p
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -20, opacity: 0 }}
+                      transition={{ 
+                        duration: 0.5,
+                        ease: [0.4, 0, 0.2, 1]
+                      }}
+                      className="p-6 text-center font-display text-sm leading-relaxed"
+                    >
+                      <span className="relative">
+                        <span className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 blur-sm rounded-lg" />
+                        <span className="relative text-white/95">
+                          {currentImage === 2 && "Rejoignez 'My DIASPO' et simplifiez vos paiements vers l'Afrique, en toute sécurité et simplicité."}
+                          {currentImage === 3 && "Effectuez vos paiements rapidement et en toute sécurité, avec un design intuitif et sécurisé"}
+                          {currentImage === 4 && "Gardez le contrôle sur vos transactions grâce à un historique clair et des reçus accessibles."}
+                          {currentImage === 5 && "Gérez votre compte, vos préférences et votre sécurité en toute simplicité."}
+                        </span>
                       </span>
-                    </span>
-                  </motion.p>
+                    </motion.p>
+                  </motion.div>
+
+                  {/* Overlay permanent avec icône sur mobile */}
+                  <div className="
+                    absolute inset-0
+                    bg-black/40
+                    block sm:hidden
+                  ">
+                    <TapIcon />
+                  </div>
+
+                  {/* Message "Payer une facture" */}
+                  <div className="
+                    absolute bottom-0 left-0 right-0
+                    bg-gradient-to-t from-black/50 to-transparent
+                    p-4
+                    text-center
+                    text-white
+                    opacity-0 group-hover:opacity-100
+                    transition-opacity duration-300
+                    block sm:hidden
+                  ">
+                    Payer une facture
+                  </div>
+
+                  {/* Effet de halo animé */}
+                  <div className="
+                    absolute -inset-[1px]
+                    bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20
+                    rounded-[2rem]
+                    -z-[1]
+                    animate-gradient-x
+                  "/>
                 </motion.div>
 
-                {/* Overlay permanent avec icône sur mobile */}
+                {/* Indicateurs */}
                 <div className="
-                  absolute inset-0
-                  bg-black/40
-                  block sm:hidden
+                  absolute -bottom-6 
+                  left-1/2 -translate-x-1/2 
+                  flex gap-2
+                  mt-4 sm:mt-0           // Ajusté l'espacement des indicateurs
                 ">
-                  <TapIcon />
+                  {[2,3,4,5].map((index) => (
+                    <div 
+                      key={index}
+                      className={`
+                        h-[2px]
+                        transition-all duration-300
+                        ${currentImage === index 
+                          ? 'w-8 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60' 
+                          : 'w-2 bg-white/20'
+                        }
+                      `}
+                    />
+                  ))}
                 </div>
-
-                {/* Message "Payer une facture" */}
-                <div className="
-                  absolute bottom-0 left-0 right-0
-                  bg-gradient-to-t from-black/50 to-transparent
-                  p-4
-                  text-center
-                  text-white
-                  opacity-0 group-hover:opacity-100
-                  transition-opacity duration-300
-                  block sm:hidden
-                ">
-                  Payer une facture
-                </div>
-
-                {/* Effet de halo animé */}
-                <div className="
-                  absolute -inset-[1px]
-                  bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20
-                  rounded-[2rem]
-                  -z-[1]
-                  animate-gradient-x
-                "/>
-              </motion.div>
-
-              {/* Indicateurs */}
-              <div className="
-                absolute -bottom-6 
-                left-1/2 -translate-x-1/2 
-                flex gap-2
-                mt-4 sm:mt-0           // Ajusté l'espacement des indicateurs
-              ">
-                {[2,3,4,5].map((index) => (
-                  <div 
-                    key={index}
-                    className={`
-                      h-[2px]
-                      transition-all duration-300
-                      ${currentImage === index 
-                        ? 'w-8 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60' 
-                        : 'w-2 bg-white/20'
-                      }
-                    `}
-                  />
-                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <ScrollCTA />
+        <ScrollCTA />
 
-      {/* Boutons CTA - visible uniquement sur desktop */}
-      <div className="hidden sm:flex flex-row gap-4 mt-8">
-        <button className="btn-primary">
-          Payer une facture
-        </button>
-        <button className="btn-outline">
-          En savoir plus
-        </button>
-      </div>
-    </section>
+        {/* Boutons CTA - visible uniquement sur desktop */}
+        <div className="hidden sm:flex flex-row gap-4 mt-8">
+          <button className="btn-primary">
+            Payer une facture
+          </button>
+          <button className="btn-outline">
+            En savoir plus
+          </button>
+        </div>
+      </section>
+      
+      <LeafTransition className="mt-[-2rem] mb-[-2rem] z-10" />
+    </>
   );
 } 

@@ -5,6 +5,7 @@ import Fonctionnement from '@/components/sections/Fonctionnement'
 import Features from '@/components/sections/Features'
 import Services from '@/components/sections/Services'
 import Testimonials from '@/components/sections/Testimonials'
+import Initiatives from '@/components/sections/Initiatives'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <CountryBanner />
       <Story />
+      <Initiatives />
       <Fonctionnement />
       <Features />
       <Services />
