@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ScrollCTA from "@/components/ui/ScrollCTA";
 import FinancialFlow from '@/components/ui/FinancialFlow';
+import { useTheme } from 'next-themes';
 
 // Icône de doigt qui pointe
 const TapIcon = () => (
@@ -45,6 +46,8 @@ export default function Hero() {
     target: containerRef,
     offset: ["start start", "end start"]
   });
+
+  const { theme } = useTheme();
 
   // Animation au curseur plus sensible
   const [mouseX, setMouseX] = useState(0);
@@ -111,12 +114,14 @@ export default function Hero() {
             priority
             quality={100}
           />
-          {/* Overlay inchangé car il fonctionne bien */}
-          <div className="
-            absolute inset-0 
-            bg-gradient-to-b from-background/75 via-background/85 to-background/95
-            backdrop-blur-[1px]
-          " />
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: theme === 'dark' 
+                ? `linear-gradient(to bottom, rgba(15,23,42,0.75), rgba(15,23,42,0.85), rgba(15,23,42,0.95))`
+                : `linear-gradient(to bottom, rgba(253,251,247,0.75), rgba(253,251,247,0.85), rgba(253,251,247,0.95))`
+            }}
+          />
         </motion.div>
       </motion.div>
 
@@ -367,6 +372,35 @@ export default function Hero() {
                     />
                   </motion.div>
                 </AnimatePresence>
+
+                {/* Messages interactifs pour desktop */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 hidden sm:flex items-end justify-center bg-gradient-to-t from-black/90 via-black/40 to-transparent"
+                >
+                  <motion.p
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ 
+                      duration: 0.5,
+                      ease: [0.4, 0, 0.2, 1]
+                    }}
+                    className="p-6 text-center font-display text-sm leading-relaxed"
+                  >
+                    <span className="relative">
+                      <span className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 blur-sm rounded-lg" />
+                      <span className="relative text-white/95">
+                        {currentImage === 2 && "Rejoignez 'My DIASPO' et simplifiez vos paiements vers l'Afrique, en toute sécurité et simplicité."}
+                        {currentImage === 3 && "Effectuez vos paiements rapidement et en toute sécurité, avec un design intuitif et sécurisé"}
+                        {currentImage === 4 && "Gardez le contrôle sur vos transactions grâce à un historique clair et des reçus accessibles."}
+                        {currentImage === 5 && "Gérez votre compte, vos préférences et votre sécurité en toute simplicité."}
+                      </span>
+                    </span>
+                  </motion.p>
+                </motion.div>
 
                 {/* Overlay permanent avec icône sur mobile */}
                 <div className="
