@@ -12,7 +12,7 @@ const stats = [
 
 export default function Story() {
   const containerRef = useRef(null)
-  const numberRefs = useRef([])
+  const numberRefs = useRef<(HTMLDivElement | null)[]>([])
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
