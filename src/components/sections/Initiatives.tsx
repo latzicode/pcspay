@@ -14,14 +14,14 @@ const initiatives = [
     delay: 0.2
   },
   {
-    title: "Construction d'un Orphelinat",
+    title: "Financement d'un Orphelinat",
     description: "Aidez à créer un foyer pour les enfants sans famille. Votre soutien leur offre un toit, une éducation et une chance de rêver d'un avenir meilleur.",
     image: "/initiative/orphelinat.png",
     gradient: "from-primary/80 to-accent/80",
     delay: 0.4
   },
   {
-    title: "Construction d'un Terrain de Foot",
+    title: "Contribuez à la construction d'un Terrain de Foot",
     description: "Faites du sport un moteur de changement. En finançant ce terrain, vous donnez aux jeunes un espace sûr pour se rassembler, jouer et grandir.",
     image: "/initiative/footballfield.png",
     gradient: "from-green-500/80 to-green-600/80",
