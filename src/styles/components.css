@@ -1,0 +1,42 @@
+@layer components {
+  /* Navigation */
+  .nav-container {
+    @apply fixed top-0 left-0 right-0 z-50;
+  }
+
+  .nav-background {
+    @apply absolute inset-0 -z-10;
+  }
+
+  .nav-gradient {
+    @apply absolute inset-0;
+    background: radial-gradient(circle at 30% -20%, var(--gradient-start), transparent 50%);
+  }
+
+  .nav-gradient-secondary {
+    @apply absolute inset-0;
+    background: radial-gradient(circle at 70% -20%, var(--gradient-end), transparent 50%);
+  }
+
+  .nav-blur {
+    @apply absolute inset-0 backdrop-blur-sm bg-background/80;
+  }
+
+  .nav-link {
+    @apply text-text-muted hover:text-text transition-colors;
+  }
+
+  .nav-button {
+    @apply px-4 py-2 rounded-full bg-gradient-to-r from-primary to-primary/80 
+           text-white font-medium shadow-lg hover:shadow-xl 
+           transition-all duration-300;
+  }
+
+  .nav-logo {
+    @apply text-2xl font-bold;
+    background: var(--logo-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--text-shadow);
+  }
+} 

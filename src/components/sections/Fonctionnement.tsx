@@ -14,7 +14,7 @@ const steps = [
   {
     number: "01",
     title: "Alimentez votre compte",
-    description: "Chargez votre compte PCSPAY en toute sécurité via nos multiples options de paiement.",
+    description: "Créez et alimentez votre compte MY DIASPO en quelques clics...",
     Icon: FaWallet,
     gradient: "from-primary to-accent",
     delay: 0.2
@@ -52,27 +52,10 @@ export default function Fonctionnement() {
     offset: ["start end", "end start"]
   })
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100, 0, 0, -100])
-
   return (
     <section ref={containerRef} className="relative py-20 lg:py-32 overflow-hidden mt-[-2rem] lg:mt-0 pt-32">
-      {/* Fond avec dégradé pour transition douce */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background to-background" />
-        <motion.div 
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,107,44,0.1),transparent_70%)]"
-          style={{ opacity }}
-        />
-        <motion.div 
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,215,0,0.1),transparent_70%)]"
-          style={{ opacity }}
-        />
-      </div>
-
       <motion.div 
         className="max-w-7xl mx-auto px-4"
-        style={{ y }}
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -95,7 +78,7 @@ export default function Fonctionnement() {
             transition={{ delay: 0.2 }}
             className="text-xl text-text-muted max-w-2xl mx-auto"
           >
-            Payez les factures de votre famille en quelques clics
+            Découvrez comment MY DIASPO simplifie vos transactions
           </motion.p>
         </motion.div>
 

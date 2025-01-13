@@ -30,7 +30,7 @@ const cardVariants = {
 
 export default function Features() {
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section className="py-20 bg-gradient-to-b from-white to-background-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,10 +40,13 @@ export default function Features() {
         >
           <motion.h2 
             className="text-4xl md:text-5xl font-bold mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            Pourquoi choisir
+            Les avantages
             <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              PCSPAY ?
+              MY DIASPO
             </span>
           </motion.h2>
           <motion.p
@@ -61,17 +64,17 @@ export default function Features() {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+              className="bg-gradient-to-br from-primary/5 via-accent/10 to-primary/15 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow border border-primary/10"
               variants={cardVariants}
               whileHover="hover"
             >
-              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white text-2xl mb-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent text-white text-2xl mb-4">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-text-muted">
                 {feature.description}
               </p>
             </motion.div>

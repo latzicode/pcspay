@@ -3,19 +3,53 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Couleurs */
+  --background: #FDFBF7;
+  --background-light: #FFFFFF;
+  --primary: #D4B78F;
+  --accent: #F8D7E5;
+  --text: #2D2016;
+  --text-muted: #766E66;
+
+  /* Gradients */
+  --gradient-start: rgba(212, 183, 143, 0.1);
+  --gradient-end: rgba(248, 215, 229, 0.1);
+  --logo-gradient: linear-gradient(to right, #B89F7A 0%, #FFC078 50%, #B89F7A 100%);
+
+  /* Effets */
+  --text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  /* Logo Gradient - copié exactement du style inline actuel */
+  --logo-gradient: linear-gradient(to right, #B89F7A 0%, #FFC078 50%, #B89F7A 100%);
+  --logo-text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  --logo-right-offset: -0.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  /* Couleurs */
+  --background: #0F172A;
+  --background-light: #1E293B;
+  --primary: #FF6B2C;
+  --accent: #FFD700;
+  --text: #F8FAFC;
+  --text-muted: #94A3B8;
+
+  /* Gradients */
+  --gradient-start: rgba(30, 41, 59, 0.8);
+  --gradient-end: rgba(255, 107, 44, 0.1);
+  --logo-gradient: linear-gradient(to right, #FF6B2C 0%, #FFD700 50%, #FF6B2C 100%);
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.perspective-800 {
+  perspective: 800px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
 }

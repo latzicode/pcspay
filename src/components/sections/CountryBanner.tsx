@@ -63,36 +63,48 @@ export default function CountryBanner() {
     <div className="relative w-full overflow-hidden bg-background-light/30 backdrop-blur-sm py-8">
       <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10" />
       
-      <motion.div
-        className="flex whitespace-nowrap"
-        animate={{
-          x: ["0%", "-50%"]
-        }}
-        transition={{
-          duration: 10,
-          ease: "linear",
-          repeat: Infinity
-        }}
-      >
-        {duplicatedCountries.map((country, index) => (
-          <div
-            key={index}
-            className="inline-flex flex-col items-center mx-12 space-y-3"
-          >
-            <div className="relative w-16 h-12">
-              <Image
-                src={country.flag}
-                alt={`Drapeau ${country.name}`}
-                fill
-                className="object-cover rounded-sm shadow-lg"
-              />
+      <div className="flex">
+        <div className="animate-infinite-scroll flex whitespace-nowrap">
+          {countries.map((country, index) => (
+            <div
+              key={index}
+              className="inline-flex flex-col items-center mx-8 sm:mx-12 space-y-2 sm:space-y-3"
+            >
+              <div className="relative w-12 sm:w-16 h-8 sm:h-12">
+                <Image
+                  src={country.flag}
+                  alt={`Drapeau ${country.name}`}
+                  fill
+                  className="object-cover rounded-sm shadow-lg"
+                />
+              </div>
+              <span className="text-text-muted text-xs sm:text-sm font-medium">
+                {country.name}
+              </span>
             </div>
-            <span className="text-text-muted font-medium text-sm">
-              {country.name}
-            </span>
-          </div>
-        ))}
-      </motion.div>
+          ))}
+        </div>
+        <div className="animate-infinite-scroll flex whitespace-nowrap" aria-hidden="true">
+          {countries.map((country, index) => (
+            <div
+              key={index}
+              className="inline-flex flex-col items-center mx-8 sm:mx-12 space-y-2 sm:space-y-3"
+            >
+              <div className="relative w-12 sm:w-16 h-8 sm:h-12">
+                <Image
+                  src={country.flag}
+                  alt={`Drapeau ${country.name}`}
+                  fill
+                  className="object-cover rounded-sm shadow-lg"
+                />
+              </div>
+              <span className="text-text-muted text-xs sm:text-sm font-medium">
+                {country.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 } 

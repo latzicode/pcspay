@@ -5,26 +5,26 @@ import Image from 'next/image'
 
 const services = [
   {
-    title: 'Paiement de Factures',
-    description: 'Avec PCSPAY, réglez vos factures d\'électricité, d\'eau et de télécommunications en quelques clics, partout en Afrique.',
-    image: '/services/bills.png',
-    gradient: 'from-primary/80 via-accent/40 to-primary/80',
+    title: "Transfert d'argent",
+    description: "MY DIASPO vous permet d'envoyer de l'argent à vos proches en toute sécurité et en quelques clics seulement. Profitez des meilleurs taux de change.",
+    gradient: "from-primary/90 via-primary/90 to-primary/90",
+    image: "/services/transfer.png",
     delay: 0.2
   },
   {
-    title: 'Transfert d\'Argent',
-    description: 'Envoyez de l\'argent à vos proches instantanément avec PCSPAY. Simple, rapide et sécurisé, où que vous soyez.',
-    image: '/services/transfer.png',
-    gradient: 'from-accent/80 via-primary/40 to-accent/80',
+    title: "Paiement de factures",
+    description: "Avec MY DIASPO, réglez facilement les factures de vos proches en Afrique. Eau, électricité, internet, tout est possible !",
+    gradient: "from-accent/90 via-accent/90 to-accent/90",
+    image: "/services/bills.png",
     delay: 0.4
   },
   {
-    title: 'Recharge Mobile',
-    description: 'Rechargez les forfaits mobiles de vos proches directement depuis l\'application PCSPAY. Une solution pratique pour rester connecté.',
-    image: '/services/mobile.png',
-    gradient: 'from-primary/80 via-accent/40 to-primary/80',
+    title: "Recharge mobile",
+    description: "MY DIASPO vous permet de recharger le crédit téléphonique de vos proches en quelques secondes.",
+    gradient: "from-primary/90 via-accent/90 to-primary/90",
+    image: "/services/mobile.png",
     delay: 0.6
-  },
+  }
 ]
 
 export default function Services() {
@@ -49,13 +49,14 @@ export default function Services() {
           className="text-center mb-20"
         >
           <motion.h2 
+            className="text-4xl md:text-5xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold mb-6"
           >
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Solutions PCSPAY
+            Les services
+            <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              MY DIASPO
             </span>
           </motion.h2>
           <motion.p
