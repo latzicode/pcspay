@@ -29,6 +29,8 @@ export default function Story() {
     if (hasAnimated) return
     
     numberRefs.current.forEach((ref, index) => {
+      if (!ref) return
+      
       const value = stats[index].value
       const num = value.includes('%') 
         ? 99 
@@ -37,7 +39,7 @@ export default function Story() {
       animate(0, num, {
         duration: 1.5,
         onUpdate: (latest) => {
-          if (ref) {
+          if (ref && typeof latest === 'number') {
             if (value.includes('K+')) {
               ref.textContent = `${Math.floor(latest)}K+`
             } else if (value.includes('+')) {
@@ -45,7 +47,7 @@ export default function Story() {
             } else if (value.includes('%')) {
               ref.textContent = `${latest.toFixed(1)}%`
             } else {
-              ref.textContent = Math.floor(latest)
+              ref.textContent = Math.floor(latest).toString()
             }
           }
         },
