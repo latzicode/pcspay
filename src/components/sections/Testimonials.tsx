@@ -3,6 +3,8 @@
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
+import { useVisuals } from '@/contexts/VisualContext'
 
 const testimonials = [
   {
@@ -32,6 +34,8 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
+  const { theme } = useTheme()
+  const { getBackgroundStyle } = useVisuals()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
@@ -75,7 +79,26 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-background-light overflow-hidden">
+    <section className="relative py-20 overflow-hidden">
+      {/* Background avec pattern */}
+      <div className="absolute inset-0 -z-10">
+        <div 
+          className="absolute inset-0"
+          style={{
+            ...getBackgroundStyle('pattern2'),
+            opacity: theme === 'dark' ? 0.25 : 0.35,
+          }}
+        />
+        <div 
+          className="absolute inset-0 transition-colors duration-300"
+          style={{
+            background: theme === 'dark' 
+              ? 'rgba(15,23,42,0.92)'
+              : 'rgba(253,251,247,0.92)'
+          }}
+        />
+      </div>
+
       <motion.div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h1 

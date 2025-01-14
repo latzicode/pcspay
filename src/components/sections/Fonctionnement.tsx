@@ -9,6 +9,8 @@ import {
 } from 'react-icons/fa'
 import { useRef } from 'react'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
+import { useVisuals } from '@/contexts/VisualContext'
 
 const steps = [
   {
@@ -47,6 +49,8 @@ const steps = [
 
 export default function Fonctionnement() {
   const containerRef = useRef(null)
+  const { theme } = useTheme()
+  const { getBackgroundStyle } = useVisuals()
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -54,6 +58,33 @@ export default function Fonctionnement() {
 
   return (
     <section ref={containerRef} className="relative py-20 lg:py-32 overflow-hidden mt-[-2rem] lg:mt-0 pt-32">
+      {/* Background avec pattern et gradients */}
+      <div className="absolute inset-0 -z-10">
+        <div 
+          className="absolute inset-0"
+          style={{
+            ...getBackgroundStyle('pattern4'),
+            opacity: theme === 'dark' ? 0.25 : 0.35,
+            maskImage: `linear-gradient(to bottom, 
+              transparent 0%, 
+              black 15%, 
+              black 85%, 
+              transparent 100%
+            )`,
+          }}
+        />
+        
+        {/* Overlay de base */}
+        <div 
+          className="absolute inset-0 transition-colors duration-300"
+          style={{
+            background: theme === 'dark' 
+              ? 'rgba(15,23,42,0.92)'
+              : 'rgba(253,251,247,0.92)'
+          }}
+        />
+      </div>
+
       <motion.div 
         className="max-w-7xl mx-auto px-4"
       >
@@ -192,7 +223,7 @@ export default function Fonctionnement() {
                 >
                   {step.title}
                 </motion.h3>
-                <p className="text-text-muted group-hover:text-text transition-colors duration-300">
+                <p className="text-text-muted group-hover:text-text transition-colors duration-300 dark:text-slate-400">
                   {step.description}
                 </p>
 

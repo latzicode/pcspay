@@ -50,8 +50,11 @@ export default function LeafTransition({ className = '' }: LeafTransitionProps) 
   })
 
   return (
-    <div ref={containerRef} className={`relative h-32 sm:h-40 overflow-hidden ${className}`}>
-      <div className="absolute inset-0 flex items-center justify-center">
+    <div 
+      ref={containerRef} 
+      className={`relative h-12 sm:h-16 overflow-hidden ${className}`}
+    >
+      <div className="absolute inset-0 flex items-center justify-center -mt-4">
         {leaves.map((leaf, index) => (
           <motion.div
             key={index}
@@ -63,8 +66,8 @@ export default function LeafTransition({ className = '' }: LeafTransitionProps) 
               alt="Leaf decoration"
               width={0}
               height={0}
-              sizes="(max-width: 640px) 20px, (max-width: 1024px) 30px, 40px"
-              className="w-[20px] sm:w-[30px] lg:w-[40px] h-auto opacity-50 dark:opacity-30"
+              sizes="(max-width: 640px) 16px, (max-width: 1024px) 24px, 32px"
+              className="w-[16px] sm:w-[24px] lg:w-[32px] h-auto opacity-50 dark:opacity-30"
             />
           </motion.div>
         ))}

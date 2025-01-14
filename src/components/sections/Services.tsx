@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
+import { useVisuals } from '@/contexts/VisualContext'
 
 const services = [
   {
@@ -28,16 +30,26 @@ const services = [
 ]
 
 export default function Services() {
+  const { theme } = useTheme()
+  const { getBackgroundStyle } = useVisuals()
+
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(255,107,44,0.1),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_120%,rgba(255,215,0,0.1),transparent_50%)]" />
-        <Image
-          src="/patterns/pattern1.png"
-          alt="PCSPAY Pattern"
-          fill
-          className="object-cover opacity-5"
+        <div 
+          className="absolute inset-0"
+          style={{
+            ...getBackgroundStyle('pattern3'),
+            opacity: theme === 'dark' ? 0.25 : 0.35,
+          }}
+        />
+        <div 
+          className="absolute inset-0 transition-colors duration-300"
+          style={{
+            background: theme === 'dark' 
+              ? 'rgba(15,23,42,0.92)'
+              : 'rgba(253,251,247,0.92)'
+          }}
         />
       </div>
 

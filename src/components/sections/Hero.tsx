@@ -98,7 +98,7 @@ export default function Hero() {
 
   return (
     <>
-      <section ref={containerRef} className="relative min-h-[calc(100vh-5rem)] pt-20 md:pt-28 pb-0 flex flex-col bg-background overflow-hidden">
+      <section ref={containerRef} className="relative min-h-[calc(100vh-5rem)] pt-20 md:pt-28 pb-4 flex flex-col bg-background overflow-hidden">
         {/* Background avec parallaxe simplifié */}
         <motion.div 
           className="absolute inset-0 w-full h-[140vh]" // Hauteur réduite
@@ -463,7 +463,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <ScrollCTA />
+        <ScrollCTA className="pb-2" />
 
         {/* Boutons CTA - visible uniquement sur desktop */}
         <div className="hidden sm:flex flex-row gap-4 mt-8">
@@ -474,9 +474,9 @@ export default function Hero() {
             En savoir plus
           </button>
         </div>
+
+        <LeafTransition className="absolute bottom-0 left-0 right-0 h-16" />
       </section>
-      
-      <LeafTransition className="mt-[-2rem] mb-[-2rem] z-10" />
     </>
   );
 } 

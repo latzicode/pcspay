@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useScroll, useTransform, animate, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
 
 const stats = [
   { value: "500K+", label: "Transactions réussies" },
@@ -13,6 +14,7 @@ const stats = [
 export default function Story() {
   const containerRef = useRef(null)
   const numberRefs = useRef<(HTMLDivElement | null)[]>([])
+  const { theme } = useTheme()
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -143,9 +145,25 @@ export default function Story() {
 
   return (
     <section ref={containerRef} className="relative py-20 overflow-hidden">
-      {/* Transition douce depuis la Hero */}
+      {/* Background avec forêt de baobabs */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
+        <div className="relative w-full h-full">
+          <Image
+            src="/baobabforest.png"
+            alt="Forêt de Baobabs"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+          <div 
+            className="absolute inset-0 transition-colors duration-300"
+            style={{
+              background: theme === 'dark' 
+                ? 'linear-gradient(to bottom, rgba(15,23,42,0.85), rgba(15,23,42,0.97))'
+                : 'linear-gradient(to bottom, rgba(253,251,247,0.85), rgba(253,251,247,0.97))'
+            }}
+          />
+        </div>
       </div>
 
       <motion.div className="max-w-7xl mx-auto px-4">
@@ -199,35 +217,41 @@ export default function Story() {
         </motion.div>
 
         {/* Histoire principale avec image + texte + carousel */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Image avec parallaxe lent */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* Image avec meilleur responsive */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative lg:sticky lg:top-24"
-            style={{ y: imageParallax }}
+            className="relative h-[50vh] sm:h-[60vh] lg:h-[calc(100vh-4rem)]"
           >
-            <div className="relative aspect-square rounded-2xl overflow-hidden">
+            <div className="sticky top-[20vh] lg:top-24 w-full aspect-square sm:aspect-[4/3] lg:aspect-square rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/story/family.png"
                 alt="Famille connectée grâce à PCSPAY"
                 fill
-                className="object-cover"
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+              <div 
+                className="absolute inset-0 bg-gradient-to-t transition-colors duration-300"
+                style={{
+                  background: theme === 'dark'
+                    ? 'linear-gradient(to top, rgba(15,23,42,0.8), rgba(15,23,42,0.4), transparent)'
+                    : 'linear-gradient(to top, rgba(253,251,247,0.8), rgba(253,251,247,0.4), transparent)'
+                }}
+              />
             </div>
           </motion.div>
 
-          {/* Colonne de droite avec texte + carousel */}
-          <div className="space-y-12">
-            {/* Texte avec parallaxe rapide */}
+          {/* Colonne de droite avec meilleur espacement */}
+          <div className="space-y-8 lg:space-y-12 pt-4 lg:pt-0">
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-6"
-              style={{ y: textParallax }}
+              className="space-y-4 lg:space-y-6"
             >
               <p className="text-xl text-text-muted">
                 <span className="text-primary font-semibold">La diaspora africaine</span> en France maintient des liens forts avec leurs familles malgré la distance. Chaque jour, des milliers de personnes cherchent à soutenir leurs proches restés au pays.
@@ -237,10 +261,8 @@ export default function Story() {
               </p>
             </motion.div>
 
-            {/* Carousel avec même vitesse que le texte */}
-            <motion.div
-              style={{ y: carouselParallax }}
-            >
+            {/* Carousel ajusté */}
+            <div className="mt-8 lg:mt-0">
               <div className="relative h-[300px] perspective-1000">
                 <AnimatePresence mode="popLayout">
                   <motion.div
@@ -268,23 +290,32 @@ export default function Story() {
                     }}
                     className="absolute inset-0"
                   >
-                    <div className="
+                    <div className={`
                       relative p-8 rounded-2xl 
-                      bg-background-light/30 backdrop-blur-sm 
+                      ${theme === 'dark' 
+                        ? 'bg-slate-900/70 text-slate-100' 
+                        : 'bg-background-light/30'
+                      }
+                      backdrop-blur-sm 
                       border border-white/5
                       h-full
                       transform-style-3d
                       shadow-xl
-                    ">
+                    `}>
                       <div className="mb-6">
                         <div className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                           {testimonials[currentIndex].name}
                         </div>
-                        <div className="text-text-muted">
+                        <div className={`
+                          ${theme === 'dark' ? 'text-slate-300' : 'text-text-muted'}
+                        `}>
                           {testimonials[currentIndex].role}
                         </div>
                       </div>
-                      <p className="text-text-muted text-lg italic leading-relaxed">
+                      <p className={`
+                        text-lg italic leading-relaxed
+                        ${theme === 'dark' ? 'text-slate-200' : 'text-text-muted'}
+                      `}>
                         "{testimonials[currentIndex].quote}"
                       </p>
 
@@ -298,7 +329,10 @@ export default function Story() {
                               w-2 h-2 rounded-full transition-all
                               ${idx === currentIndex 
                                 ? 'bg-primary w-6' 
-                                : 'bg-text-muted/30'}
+                                : theme === 'dark' 
+                                  ? 'bg-slate-400/30'
+                                  : 'bg-text-muted/30'
+                              }
                             `}
                           />
                         ))}
@@ -307,7 +341,7 @@ export default function Story() {
                   </motion.div>
                 </AnimatePresence>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 

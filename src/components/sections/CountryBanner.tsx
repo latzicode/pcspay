@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
+import { useVisuals } from '@/contexts/VisualContext'
 
 const countries = [
   { 
@@ -59,10 +61,45 @@ const countries = [
 const duplicatedCountries = [...countries, ...countries]
 
 export default function CountryBanner() {
+  const { theme } = useTheme()
+  const { getBackgroundStyle } = useVisuals()
+
   return (
-    <div className="relative w-full overflow-hidden bg-background-light/30 backdrop-blur-sm py-8">
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10" />
+    <div className="relative w-full pt-8 pb-8 overflow-hidden">
+      {/* Pattern en fond avec gradients de fondu */}
+      <div 
+        className="absolute inset-0 -z-10"
+        style={{
+          ...getBackgroundStyle('pattern1'),
+          opacity: theme === 'dark' ? 0.4 : 0.6,
+          backgroundSize: '200px 200px',
+          backgroundRepeat: 'repeat',
+          maskImage: `linear-gradient(to bottom, 
+            transparent 0%, 
+            black 15%, 
+            black 85%, 
+            transparent 100%
+          )`,
+          WebkitMaskImage: `linear-gradient(to bottom, 
+            transparent 0%, 
+            black 15%, 
+            black 85%, 
+            transparent 100%
+          )`
+        }}
+      />
       
+      {/* Fond avec transparence */}
+      <div 
+        className="absolute inset-0 -z-10 transition-colors duration-300"
+        style={{
+          background: theme === 'dark' 
+            ? 'rgba(15,23,42,0.80)'
+            : 'rgba(253,251,247,0.75)'
+        }}
+      />
+
+      {/* Contenu existant */}
       <div className="flex">
         <div className="animate-infinite-scroll flex whitespace-nowrap">
           {countries.map((country, index) => (
@@ -78,7 +115,14 @@ export default function CountryBanner() {
                   className="object-cover rounded-sm shadow-lg"
                 />
               </div>
-              <span className="text-text-muted text-xs sm:text-sm font-medium">
+              <span className={`
+                text-xs sm:text-sm font-medium
+                ${theme === 'dark' 
+                  ? 'text-slate-300' 
+                  : 'text-text-muted'
+                }
+                transition-colors duration-300
+              `}>
                 {country.name}
               </span>
             </div>
@@ -98,7 +142,14 @@ export default function CountryBanner() {
                   className="object-cover rounded-sm shadow-lg"
                 />
               </div>
-              <span className="text-text-muted text-xs sm:text-sm font-medium">
+              <span className={`
+                text-xs sm:text-sm font-medium
+                ${theme === 'dark' 
+                  ? 'text-slate-300' 
+                  : 'text-text-muted'
+                }
+                transition-colors duration-300
+              `}>
                 {country.name}
               </span>
             </div>

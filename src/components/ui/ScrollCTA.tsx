@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion'
 
-export default function ScrollCTA() {
+export default function ScrollCTA({ className = '' }) {
   return (
     <motion.div 
-      className="flex flex-col items-center gap-4 py-8 relative z-10"
+      className={`flex flex-col items-center gap-2 py-4 relative z-10 ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2 }}

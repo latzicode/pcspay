@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
+import { useVisuals } from '../../contexts/VisualContext'
 
 const initiatives = [
   {
@@ -32,6 +33,7 @@ const initiatives = [
 export default function Initiatives() {
   const containerRef = useRef(null)
   const { theme } = useTheme()
+  const { getBackgroundStyle } = useVisuals()
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -42,15 +44,43 @@ export default function Initiatives() {
 
   return (
     <section ref={containerRef} className="relative py-32 overflow-hidden">
-      {/* Background avec motif */}
+      {/* Background avec pattern et gradients */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(255,107,44,0.1),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_120%,rgba(255,215,0,0.1),transparent_50%)]" />
-        <Image
-          src="/patterns/pattern1.png"
-          alt="Pattern"
-          fill
-          className="object-cover opacity-5"
+        {/* Pattern avec fondu */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            ...getBackgroundStyle('pattern2'),
+            opacity: theme === 'dark' ? 0.3 : 0.4,
+            maskImage: `linear-gradient(to bottom, 
+              transparent 0%, 
+              black 15%, 
+              black 85%, 
+              transparent 100%
+            )`,
+            WebkitMaskImage: `linear-gradient(to bottom, 
+              transparent 0%, 
+              black 15%, 
+              black 85%, 
+              transparent 100%
+            )`
+          }}
+        />
+
+        {/* Gradients */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(255,107,44,0.15),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_-20%,rgba(255,107,44,0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_120%,rgba(255,215,0,0.15),transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_120%,rgba(255,215,0,0.1),transparent_50%)]" />
+        </div>
+
+        {/* Overlay de base */}
+        <div 
+          className="absolute inset-0 transition-colors duration-300"
+          style={{
+            background: theme === 'dark' 
+              ? 'rgba(15,23,42,0.85)'
+              : 'rgba(253,251,247,0.85)'
+          }}
         />
       </div>
 
