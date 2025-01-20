@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, MouseEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 type AddInvoiceFormProps = {
@@ -60,7 +60,7 @@ export default function AddInvoiceForm({ isOpen, onClose, onSuccess }: AddInvoic
             initial={{ scale: 0.95 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.95 }}
-            onClick={e => e.stopPropagation()}
+            onClick={(e: MouseEvent) => e.stopPropagation()}
             className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl"
           >
             <h2 className="text-2xl font-bold mb-6">Nouvelle facture</h2>
