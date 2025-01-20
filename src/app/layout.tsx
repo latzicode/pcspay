@@ -4,6 +4,8 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import SettingsMenu from "@/components/ui/SettingsMenu";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
+import Providers from "@/components/providers/Providers";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -47,7 +49,7 @@ export default function RootLayout({
         </style>
       </head>
       <body className="font-sans text-primary bg-background antialiased relative min-h-screen selection:bg-primary-light/30 selection:text-text">
-        <ThemeProvider>
+        <Providers>
           <div className="relative flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-1 relative z-0">
@@ -55,7 +57,7 @@ export default function RootLayout({
             </main>
             <SettingsMenu />
           </div>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

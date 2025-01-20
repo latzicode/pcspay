@@ -166,6 +166,7 @@ export default function Navbar() {
 
           <div className="w-[120px]"></div>
         </div>
+
       </div>
 
       <div className="absolute inset-0 -z-10">

@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  username      String?   @unique
+  password      String
+  role          Role     @default(USER)
+  invoices      Invoice[]
+  transactions  Transaction[]
+  messages      Message[]
+  
+  sentFriendRequests     FriendRequest[] @relation("SentFriendRequests")
+  receivedFriendRequests FriendRequest[] @relation("ReceivedFriendRequests")
+  
+  friends               User[]  @relation("UserFriends")
+  friendsOf            User[]  @relation("UserFriends")
+
+  sentMessages     ChatMessage[]    @relation("SentMessages")
+  receivedMessages ChatMessage[]    @relation("ReceivedMessages")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Invoice {
+  id            String    @id @default(cuid())
+  amount        Float
+  status        Status    @default(PENDING)
+  type          InvoiceType
+  description   String?
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  transaction   Transaction?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Status {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+enum InvoiceType {
+  ELECTRICITY
+  WATER
+  SCHOOL
+  MEDICAL
+  OTHER
+}
+
+model Transaction {
+  id            String    @id @default(cuid())
+  amount        Float
+  currency      Currency  @relation(fields: [currencyId], references: [id])
+  currencyId    String
+  status        TxStatus  @default(PENDING)
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  invoiceId     String?   @unique
+  invoice       Invoice?  @relation(fields: [invoiceId], references: [id])
+  createdAt     DateTime  @default(now())
+}
+
+enum TxStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model Currency {
+  id            String    @id
+  name          String
+  symbol        String
+  transactions  Transaction[]
+  exchangeRate  Float
+  updatedAt     DateTime  @updatedAt
+}
+
+model Message {
+  id            String    @id @default(cuid())
+  content       String
+  type          MessageType
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  read          Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+}
+
+enum MessageType {
+  NOTIFICATION
+  SUPPORT
+  SYSTEM
+}
+
+model FriendRequest {
+  id        String   @id @default(cuid())
+  senderId  String
+  sender    User     @relation("SentFriendRequests", fields: [senderId], references: [id])
+  receiverId String
+  receiver  User     @relation("ReceivedFriendRequests", fields: [receiverId], references: [id])
+  status    RequestStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([senderId, receiverId])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  content   String
+  senderId  String
+  sender    User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId String
+  receiver  User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+} 
