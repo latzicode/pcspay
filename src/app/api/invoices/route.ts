@@ -42,20 +42,23 @@ export async function POST(req: Request) {
     console.log('Created invoice:', invoice) // Debug
 
     return NextResponse.json({ invoice })
-  } catch (error: any) {
-    // Log complet de l'erreur
-    console.error('Detailed error:', {
-      name: error?.name,
-      message: error?.message,
-      stack: error?.stack
-    })
-
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Detailed error:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      })
+    } else {
+      console.error('Unknown error:', error)
+    }
+    
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.issues }, { status: 400 })
     }
 
     return NextResponse.json(
-      { error: "Erreur lors de la création de la facture", details: error?.message },
+      { error: "Erreur lors de la création de la facture" },
       { status: 500 }
     )
   }
