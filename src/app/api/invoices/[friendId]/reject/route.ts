@@ -25,7 +25,7 @@ export async function POST(
     // Mettre à jour le statut de la facture
     const updatedInvoice = await prisma.invoice.update({
       where: { id: invoiceId },
-      data: { status: 'REJECTED' }
+      data: { status: 'CANCELLED' }
     })
 
     return NextResponse.json({ invoice: updatedInvoice })
