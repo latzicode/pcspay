@@ -143,29 +143,29 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-8">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="p-6 rounded-xl bg-white/10 border border-white/20"
+                  className="p-3 sm:p-4 rounded-xl bg-white/10 border border-white/20"
                 >
-                  <h3 className="font-medium mb-2">Factures en attente</h3>
-                  <p className="text-2xl font-bold">{data?.pendingInvoices || 0}</p>
+                  <h3 className="text-[10px] sm:text-sm font-medium mb-2">Factures en attente</h3>
+                  <p className="text-base sm:text-2xl font-bold">{data?.pendingInvoices || 0}</p>
                 </motion.div>
 
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="p-6 rounded-xl bg-white/10 border border-white/20"
+                  className="p-3 sm:p-4 rounded-xl bg-white/10 border border-white/20"
                 >
-                  <h3 className="font-medium mb-2">Transactions du mois</h3>
-                  <p className="text-2xl font-bold">{data?.monthlyTransactions || 0}</p>
+                  <h3 className="text-[10px] sm:text-sm font-medium mb-2">Transactions du mois</h3>
+                  <p className="text-base sm:text-2xl font-bold">{data?.monthlyTransactions || 0}</p>
                 </motion.div>
 
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="p-6 rounded-xl bg-white/10 border border-white/20"
+                  className="p-3 sm:p-4 rounded-xl bg-white/10 border border-white/20"
                 >
-                  <h3 className="font-medium mb-2">Montant total</h3>
-                  <p className="text-2xl font-bold">{data?.totalAmount || 0} €</p>
+                  <h3 className="text-[10px] sm:text-sm font-medium mb-2">Montant total</h3>
+                  <p className="text-base sm:text-2xl font-bold">{data?.totalAmount || 0} €</p>
                 </motion.div>
               </div>
 

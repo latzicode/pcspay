@@ -276,7 +276,7 @@ export default function Hero() {
               {/* Bloc des CTAs - uniquement visible sur desktop */}
               <div className="hidden lg:flex flex-wrap gap-4 justify-center lg:justify-start">
                 <a 
-                  href="/pay-bill"
+                  href="/dashboard"
                   className="group px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
                 >
                   <span className="inline-flex items-center mr-3 transition-transform duration-300 group-hover:scale-110">
@@ -334,7 +334,7 @@ export default function Hero() {
                   "
                   onClick={() => {
                     if (window.innerWidth < 640) { // 640px est le breakpoint 'sm' de Tailwind
-                      window.location.href = '/pay-bill'
+                      window.location.href = '/dashboard'
                     }
                   }}
                 >
