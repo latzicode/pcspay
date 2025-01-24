@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { useVisuals } from '@/contexts/VisualContext'
 import { useTheme } from 'next-themes'
 import { FaPaperPlane, FaArrowLeft, FaFileInvoice, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
+import Link from 'next/link'
 
 type Message = {
   id: string
@@ -158,9 +159,78 @@ export default function ChatPage() {
     }
   }
 
+  // Handler pour payer une facture
+  const handlePayInvoice = async (invoiceId: string) => {
+    try {
+      const res = await fetch(`/api/invoices/${invoiceId}/pay`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+
+      if (res.ok) {
+        // Mettre à jour la liste des factures localement
+        setUserInvoices(prev => 
+          prev.map(inv => 
+            inv.id === invoiceId 
+              ? { ...inv, status: 'PAID' }
+              : inv
+          )
+        )
+
+        // Envoyer un message de confirmation
+        const confirmMessage = JSON.stringify({
+          type: 'INVOICE_PAID',
+          invoiceId
+        })
+
+        await fetch(`/api/chat/${friendId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: confirmMessage })
+        })
+      }
+    } catch (error) {
+      console.error('Error paying invoice:', error)
+    }
+  }
+
+  // Handler pour refuser une facture
+  const handleRejectInvoice = async (invoiceId: string) => {
+    try {
+      const res = await fetch(`/api/invoices/${invoiceId}/reject`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+
+      if (res.ok) {
+        // Mettre à jour la liste des factures localement
+        setUserInvoices(prev => 
+          prev.map(inv => 
+            inv.id === invoiceId 
+              ? { ...inv, status: 'REJECTED' }
+              : inv
+          )
+        )
+
+        // Envoyer un message de refus
+        const rejectMessage = JSON.stringify({
+          type: 'INVOICE_REJECTED',
+          invoiceId
+        })
+
+        await fetch(`/api/chat/${friendId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: rejectMessage })
+        })
+      }
+    } catch (error) {
+      console.error('Error rejecting invoice:', error)
+    }
+  }
+
   // Fonction pour parser et afficher une facture
   const renderMessage = (message: any) => {
-    // Si c'est un message normal (pas JSON), on le retourne tel quel
     if (!message.content.startsWith('{')) {
       return message.content
     }
@@ -168,42 +238,23 @@ export default function ChatPage() {
     try {
       const data = JSON.parse(message.content)
       if (data.type === 'INVOICE') {
-        // On trouve la facture dans notre state
-        const invoice = userInvoices.find(inv => inv.id === data.invoiceId)
-        
         return (
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-yellow-500">
               <FaFileInvoice />
-              <span className="font-medium">Facture</span>
+              <span className="font-medium">Nouvelle Facture</span>
             </div>
-            <div className="bg-white/5 rounded-lg p-3">
-              <p className="font-medium">{invoice?.description || 'Sans description'}</p>
-              <p className="text-lg font-bold mt-1">{invoice?.amount} FCFA</p>
-              {message.senderId !== session?.user.id && invoice?.status === 'PENDING' && (
-                <div className="flex gap-2 mt-3">
-                  <button
-                    onClick={() => handlePayInvoice(invoice.id)}
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-green-500/20 hover:bg-green-500/30 text-green-500 transition"
-                  >
-                    Payer
-                  </button>
-                  <button
-                    onClick={() => handleRejectInvoice(invoice.id)}
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-500 transition"
-                  >
-                    Refuser
-                  </button>
-                </div>
-              )}
-            </div>
+            <Link 
+              href={`/invoices/${data.invoiceId}`}
+              className="block bg-white/5 hover:bg-white/10 rounded-lg p-3 transition"
+            >
+              <p className="text-sm opacity-70">Cliquez pour voir les détails</p>
+            </Link>
           </div>
         )
       }
-      // Si c'est du JSON mais pas une facture, on affiche le contenu normal
       return message.content
     } catch {
-      // Si le parse échoue, on affiche le contenu normal
       return message.content
     }
   }
